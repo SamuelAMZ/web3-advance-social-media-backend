@@ -8,10 +8,8 @@ const cors = require("cors");
 // User routes
 const userRegisterRoute = require("./auth/userRoutes/register.js");
 const userLoginRoute = require("./auth/userRoutes/login.js");
-
+const userIsLoginRoute = require("./auth/userRoutes/isLogin");
 // middlewares
-// check valid user token (login or not)
-const { checkUToken } = require("./middleware/checkUToken");
 
 // body parsing
 app.use(express.json());
@@ -20,7 +18,7 @@ app.use(cookieParser());
 // cors
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.PROD_DOMAIN,
     credentials: true,
     optionSuccessStatus: 200,
   })
@@ -39,8 +37,6 @@ app.get("/", (req, res) => {
   res.status(200).send("Server up");
 });
 
-app.get("/twitter/api/user/checkLogin", checkUToken);
-
 /*   
     @desc: register user
     @method: POST
@@ -58,6 +54,14 @@ app.use("/twitter/api/user/register", userRegisterRoute);
     @body: {email: "email", password: "password"}
 */
 app.use("/twitter/api/user/login", userLoginRoute);
+
+/*   
+    @desc: check user is login
+    @method: GET
+    @privacy: public
+    @endpoint: /twitter/api/user/checkLogin
+*/
+app.use("/twitter/api/user/islogin", userIsLoginRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

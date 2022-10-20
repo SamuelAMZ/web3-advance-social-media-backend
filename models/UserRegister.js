@@ -29,6 +29,55 @@ const user = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  lastname: {
+    type: String,
+    default: "",
+    min: 4,
+    max: 255,
+  },
+  firstname: {
+    type: String,
+    default: "",
+    min: 4,
+    max: 255,
+  },
+  desc: {
+    type: String,
+    default: "no bio yet",
+    min: 4,
+    max: 1024,
+  },
+  website: {
+    type: String,
+    default: "no link yet",
+    min: 3,
+    max: 255,
+  },
+  country: {
+    type: String,
+    default: "no country yet",
+    min: 4,
+    max: 255,
+  },
+  gender: {
+    type: String,
+    default: "male",
+    max: 255,
+  },
+  bdate: {
+    type: String,
+    default: "0/0/0",
+    min: 4,
+    max: 255,
+  },
+  following: {
+    type: String,
+    default: "0",
+  },
+  followers: {
+    type: String,
+    default: "0",
+  },
 });
 
 module.exports = mongoose.model("User", user);

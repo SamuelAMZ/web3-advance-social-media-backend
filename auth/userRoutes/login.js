@@ -9,8 +9,8 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("./jwt");
 
 const schema = Joi.object({
-  email: Joi.string().required().email().lowercase(),
-  password: Joi.string().alphanum().max(1024).required(),
+  email: Joi.string().email().lowercase().required(),
+  password: Joi.string().max(1024).required(),
 });
 
 userLoginRoute.post("/", async (req, res) => {

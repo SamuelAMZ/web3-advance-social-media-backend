@@ -23,7 +23,7 @@ const checkUToken = (req, res) => {
         } else {
           // check for pages
           res.locals.user = idExist;
-          res.status(200).json({ message: "isLogin" });
+          res.status(200).json({ message: "isLogin", user: idExist });
         }
       }
     });

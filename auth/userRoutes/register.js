@@ -9,10 +9,10 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("./jwt");
 
 const schema = Joi.object({
-  username: Joi.string().min(3).required(),
-  name: Joi.string().min(3).required(),
-  email: Joi.string().required().email().lowercase(),
-  password: Joi.string().alphanum().min(6).max(1024).required(),
+  username: Joi.string().min(5).max(1024).required(),
+  name: Joi.string().min(5).max(1024).required(),
+  email: Joi.string().email().max(1024).lowercase().required(),
+  password: Joi.string().min(6).max(1024).required(),
 });
 
 userRegisterRoute.post("/", async (req, res) => {
@@ -69,7 +69,7 @@ userRegisterRoute.post("/", async (req, res) => {
       }
     } else {
       res.status(400).json({
-        message: err,
+        message: error,
       });
     }
     return;
