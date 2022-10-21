@@ -27,7 +27,7 @@ isLoginRoute.get("/", async (req, res) => {
           res.locals.user = idExist;
 
           res.set({
-            "Access-Control-Allow-Origin": "https://tickl.ch",
+            "Access-Control-Allow-Origin": process.env.DOMAIN,
             "Access-Control-Allow-Credentials": true,
             "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
             "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",

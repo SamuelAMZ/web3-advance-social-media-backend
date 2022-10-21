@@ -42,7 +42,7 @@ userRegisterRoute.post("/", async (req, res) => {
     // generate user token
     const token = createToken(user.id);
     res.set({
-      "Access-Control-Allow-Origin": "https://tickl.ch",
+      "Access-Control-Allow-Origin": process.env.DOMAIN,
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",

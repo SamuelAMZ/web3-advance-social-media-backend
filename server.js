@@ -18,7 +18,7 @@ app.use(cookieParser());
 // cors
 app.use(
   cors({
-    origin: "https://tickl.ch",
+    origin: process.env.DOMAIN,
     credentials: true,
     optionSuccessStatus: 200,
   })
