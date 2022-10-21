@@ -52,6 +52,7 @@ userLoginRoute.post("/", async (req, res) => {
       res.cookie("uToken", token, {
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
       });
 
       res.status(200).json({
