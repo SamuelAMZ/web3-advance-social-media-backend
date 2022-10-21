@@ -39,6 +39,13 @@ userLoginRoute.post("/", async (req, res) => {
   } else {
     // dehash pass and try to match them
     if (await bcrypt.compare(password, checkUser.password)) {
+      res.set({
+        "Access-Control-Allow-Origin": "https://tickl.ch",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
+      });
+
       // generate user token
       const token = createToken(checkUser.id);
       // pass token to cookie
