@@ -9,7 +9,9 @@ const cors = require("cors");
 const userRegisterRoute = require("./auth/userRoutes/register.js");
 const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
+const UsernameRoute = require("./routes/settings/username");
 // middlewares
+const checkUToken = require("./middleware/checkUToken");
 
 // body parsing
 app.use(express.json());
@@ -62,6 +64,14 @@ app.use("/twitter/api/user/login", userLoginRoute);
     @endpoint: /twitter/api/user/checkLogin
 */
 app.use("/twitter/api/user/islogin", userIsLoginRoute);
+
+/*   
+    @desc: update username fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/username
+*/
+app.use("/twitter/api/settings/username", checkUToken, UsernameRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

@@ -40,7 +40,7 @@ isLoginRoute.get("/", async (req, res) => {
               email: idExist.email,
               username: idExist.username,
               name: idExist.name,
-              id: idExist.__id,
+              id: idExist._id,
               date: idExist.date,
               lastname: idExist.lastname,
               firstname: idExist.firstname,
