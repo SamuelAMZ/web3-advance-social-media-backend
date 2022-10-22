@@ -66,7 +66,7 @@ app.use("/twitter/api/user/login", userLoginRoute);
 app.use("/twitter/api/user/islogin", userIsLoginRoute);
 
 /*   
-    @desc: update username fields
+    @desc: update username setting fields
     @method: POST
     @privacy: private
     @endpoint: /twitter/api/settings/username
