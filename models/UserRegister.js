@@ -78,6 +78,28 @@ const user = new mongoose.Schema({
     type: String,
     default: "0",
   },
+  profileicon: {
+    normal: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dm7pcraut/image/upload/v1666499517/u_profile_main/1946429_dpitlh.png",
+      max: 1050,
+    },
+    thumb: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dm7pcraut/image/upload/c_limit,h_60,w_90/v1666499517/u_profile_main/1946429_dpitlh.png",
+      max: 1050,
+    },
+  },
+  profileback: {
+    normal: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dm7pcraut/image/upload/v1666500653/u_profile_main/dvux_fyhbql.png",
+      max: 1050,
+    },
+  },
 });
 
 module.exports = mongoose.model("User", user);

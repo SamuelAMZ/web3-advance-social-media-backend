@@ -10,6 +10,7 @@ const userRegisterRoute = require("./auth/userRoutes/register.js");
 const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
 const UsernameRoute = require("./routes/settings/username");
+const ProfileImgRoute = require("./routes/settings/profileimg");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -72,6 +73,14 @@ app.use("/twitter/api/user/islogin", userIsLoginRoute);
     @endpoint: /twitter/api/settings/username
 */
 app.use("/twitter/api/settings/username", checkUToken, UsernameRoute);
+
+/*   
+    @desc: update profile picture setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/profileimg
+*/
+app.use("/twitter/api/settings/profileimg", checkUToken, ProfileImgRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

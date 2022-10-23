@@ -51,6 +51,13 @@ isLoginRoute.get("/", async (req, res) => {
               bdate: idExist.bdate,
               following: idExist.following,
               followers: idExist.followers,
+              profileicon: {
+                normal: idExist.profileicon.normal,
+                thumb: idExist.profileicon.thumb,
+              },
+              profileback: {
+                normal: idExist.profileback.normal,
+              },
             },
           });
         }
