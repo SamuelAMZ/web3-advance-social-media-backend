@@ -6,31 +6,30 @@ const User = require("../models/UserRegister");
 const checkUToken = (req, res, next) => {
   const uToken = req.cookies.uToken;
 
-  if (uToken) {
-    // check if token is valid
-    jwt.verify(uToken, process.env.JWT_U_SECRET, async (err, decodedToken) => {
-      if (err) {
+  if (!uToken)
+    return res.status(403).json({ message: "need to login first 'code 003'" });
+
+  // check if token is valid
+  jwt.verify(uToken, process.env.JWT_U_SECRET, async (err, decodedToken) => {
+    if (err) {
+      return res
+        .status(403)
+        .json({ message: "need to login first 'code 004'" });
+    } else {
+      // check if token uid is found in the user database
+      const uId = decodedToken.id;
+      const idExist = await User.findById(uId);
+
+      if (idExist === null || !idExist) {
         return res
           .status(403)
           .json({ message: "need to login first 'code 004'" });
       } else {
-        // check if token uid is found in the user database
-        const uId = decodedToken.id;
-        const idExist = await User.findById(uId);
-
-        if (idExist === null || !idExist) {
-          return res
-            .status(403)
-            .json({ message: "need to login first 'code 004'" });
-        } else {
-          // check for pages
-          next();
-        }
+        // check for pages
+        next();
       }
-    });
-  } else {
-    return res.status(403).json({ message: "need to login first 'code 003'" });
-  }
+    }
+  });
 };
 
 module.exports = checkUToken;
