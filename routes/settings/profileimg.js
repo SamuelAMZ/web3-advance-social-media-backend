@@ -50,8 +50,27 @@ ProfilemgRoute.post("/", async (req, res) => {
       return res.status(200).json({
         message: "Successfully updated",
         user: {
-          imgicon_small: idExist.profileicon.small,
-          imgicon_normal: idExist.profileicon.normal,
+          email: idExist.email,
+          username: idExist.username,
+          name: idExist.name,
+          id: idExist._id,
+          date: idExist.date,
+          lastname: idExist.lastname,
+          firstname: idExist.firstname,
+          desc: idExist.desc,
+          website: idExist.website,
+          country: idExist.country,
+          gender: idExist.gender,
+          bdate: idExist.bdate,
+          following: idExist.following,
+          followers: idExist.followers,
+          profileicon: {
+            normal: idExist.profileicon.normal,
+            thumb: idExist.profileicon.thumb,
+          },
+          profileback: {
+            normal: idExist.profileback.normal,
+          },
         },
       });
     }
@@ -64,7 +83,27 @@ ProfilemgRoute.post("/", async (req, res) => {
     return res.status(200).json({
       message: "Successfully updated",
       user: {
-        imgback: idExist.profileback.normal,
+        email: idExist.email,
+        username: idExist.username,
+        name: idExist.name,
+        id: idExist._id,
+        date: idExist.date,
+        lastname: idExist.lastname,
+        firstname: idExist.firstname,
+        desc: idExist.desc,
+        website: idExist.website,
+        country: idExist.country,
+        gender: idExist.gender,
+        bdate: idExist.bdate,
+        following: idExist.following,
+        followers: idExist.followers,
+        profileicon: {
+          normal: idExist.profileicon.normal,
+          thumb: idExist.profileicon.thumb,
+        },
+        profileback: {
+          normal: idExist.profileback.normal,
+        },
       },
     });
   }

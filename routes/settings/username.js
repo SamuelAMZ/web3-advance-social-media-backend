@@ -49,6 +49,11 @@ UsernameRoute.post("/", async (req, res) => {
   if (idExist === "null" || !idExist) {
     return res.status(403).json({ message: "User not valide 'code 005'" });
   } else {
+    // check if username is not already taken
+    const userNameTaken = await User.findOne({ username: usernameValue });
+    if (userNameTaken)
+      return res.status(400).json({ message: "username already taken" });
+
     // update user
     idExist.username = usernameValue;
     idExist.lastname = lastnameValue;
@@ -58,11 +63,29 @@ UsernameRoute.post("/", async (req, res) => {
 
     res.status(200).json({
       message: "Successfully updated",
+      status: "ok",
       user: {
+        email: idExist.email,
         username: idExist.username,
+        name: idExist.name,
+        id: idExist._id,
+        date: idExist.date,
         lastname: idExist.lastname,
         firstname: idExist.firstname,
-        name: idExist.name,
+        desc: idExist.desc,
+        website: idExist.website,
+        country: idExist.country,
+        gender: idExist.gender,
+        bdate: idExist.bdate,
+        following: idExist.following,
+        followers: idExist.followers,
+        profileicon: {
+          normal: idExist.profileicon.normal,
+          thumb: idExist.profileicon.thumb,
+        },
+        profileback: {
+          normal: idExist.profileback.normal,
+        },
       },
     });
   }
