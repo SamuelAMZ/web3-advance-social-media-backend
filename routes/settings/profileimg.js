@@ -49,6 +49,7 @@ ProfilemgRoute.post("/", async (req, res) => {
 
       return res.status(200).json({
         message: "Successfully updated",
+        status: "ok",
         user: {
           email: idExist.email,
           username: idExist.username,
@@ -82,6 +83,7 @@ ProfilemgRoute.post("/", async (req, res) => {
 
     return res.status(200).json({
       message: "Successfully updated",
+      status: "ok",
       user: {
         email: idExist.email,
         username: idExist.username,
