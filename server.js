@@ -11,6 +11,11 @@ const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
 const UsernameRoute = require("./routes/settings/username");
 const ProfileImgRoute = require("./routes/settings/profileimg");
+const DescirptionRoute = require("./routes/settings/description");
+const EmailRoute = require("./routes/settings/email");
+const CountryRoute = require("./routes/settings/country");
+const BirthdateRoute = require("./routes/settings/birthdate");
+const GenderRoute = require("./routes/settings/gender");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -81,6 +86,46 @@ app.use("/twitter/api/settings/username", checkUToken, UsernameRoute);
     @endpoint: /twitter/api/settings/profileimg
 */
 app.use("/twitter/api/settings/profileimg", checkUToken, ProfileImgRoute);
+
+/*   
+    @desc: update description and website setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/description
+*/
+app.use("/twitter/api/settings/description", checkUToken, DescirptionRoute);
+
+/*   
+    @desc: update email and website setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/email
+*/
+app.use("/twitter/api/settings/email", checkUToken, EmailRoute);
+
+/*   
+    @desc: update country setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/country
+*/
+app.use("/twitter/api/settings/country", checkUToken, CountryRoute);
+
+/*   
+    @desc: update birthdate setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/birthdate
+*/
+app.use("/twitter/api/settings/birthdate", checkUToken, BirthdateRoute);
+
+/*   
+    @desc: update gender setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/gender
+*/
+app.use("/twitter/api/settings/gender", checkUToken, GenderRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
