@@ -16,6 +16,7 @@ const EmailRoute = require("./routes/settings/email");
 const CountryRoute = require("./routes/settings/country");
 const BirthdateRoute = require("./routes/settings/birthdate");
 const GenderRoute = require("./routes/settings/gender");
+const PasswordRoute = require("./routes/settings/password");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -126,6 +127,14 @@ app.use("/twitter/api/settings/birthdate", checkUToken, BirthdateRoute);
     @endpoint: /twitter/api/settings/gender
 */
 app.use("/twitter/api/settings/gender", checkUToken, GenderRoute);
+
+/*   
+    @desc: update password setting fields
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/settings/password
+*/
+app.use("/twitter/api/settings/password", checkUToken, PasswordRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
