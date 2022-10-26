@@ -51,8 +51,11 @@ UsernameRoute.post("/", async (req, res) => {
   } else {
     // check if username is not already taken
     const userNameTaken = await User.findOne({ username: usernameValue });
-    if (userNameTaken)
-      return res.status(400).json({ message: "username already taken" });
+    if (userNameTaken) {
+      if (idExist.username !== usernameValue) {
+        return res.status(400).json({ message: "username already taken" });
+      }
+    }
 
     // update user
     idExist.username = usernameValue;

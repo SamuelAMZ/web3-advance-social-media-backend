@@ -9,6 +9,7 @@ const cors = require("cors");
 const userRegisterRoute = require("./auth/userRoutes/register.js");
 const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
+const LogoutRoute = require("./auth/userRoutes/logout");
 const UsernameRoute = require("./routes/settings/username");
 const ProfileImgRoute = require("./routes/settings/profileimg");
 const DescirptionRoute = require("./routes/settings/description");
@@ -63,6 +64,14 @@ app.use("/twitter/api/user/register", userRegisterRoute);
     @body: {email: "email", password: "password"}
 */
 app.use("/twitter/api/user/login", userLoginRoute);
+
+/*   
+    @desc: logout user
+    @method: GET
+    @privacy: public
+    @endpoint: /api/user/logout
+*/
+app.use("/twitter/api/user/logout", LogoutRoute);
 
 /*   
     @desc: check user is login
