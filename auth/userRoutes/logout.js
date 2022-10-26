@@ -9,7 +9,12 @@ LogoutRoute.get("/", (req, res) => {
     "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
   });
 
-  res.cookie("uToken", "", { maxAge: 1 });
+  res.cookie("uToken", "", {
+    maxAge: 1,
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
   res.status(200).json({ message: "logout successfully", code: "ok" });
 });
 
