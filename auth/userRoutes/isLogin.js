@@ -26,13 +26,6 @@ isLoginRoute.get("/", async (req, res) => {
           // check for pages
           res.locals.user = idExist;
 
-          res.set({
-            "Access-Control-Allow-Origin": process.env.DOMAIN,
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
-          });
-
           res.status(200).json({
             message: "isLogin",
             status: "true",

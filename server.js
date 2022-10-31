@@ -43,6 +43,17 @@ mongoose.connect(process.env.DB_URI_USR, {}, (err) => {
   }
 });
 
+// set headers globally
+app.use((req, res, next) => {
+  res.set({
+    "Access-Control-Allow-Origin": process.env.DOMAIN,
+    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Origin, Content-Type, Accept",
+  });
+  next();
+});
+
 app.get("/", (req, res) => {
   res.status(200).send("Server up");
 });
