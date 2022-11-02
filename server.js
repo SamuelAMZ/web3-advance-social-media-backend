@@ -35,7 +35,7 @@ app.use(
 );
 
 // connect mongoose
-mongoose.connect(process.env.DB_URI_USR, {}, (err) => {
+mongoose.connect(process.env.DB_URI_USR, { maxPoolSize: 10 }, (err) => {
   if (err) {
     console.log(err);
   } else {
