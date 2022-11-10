@@ -34,6 +34,7 @@ userRegisterRoute.post("/", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashedPass,
+    tags: `${req.body.username} ${req.body.name}`,
   });
 
   try {

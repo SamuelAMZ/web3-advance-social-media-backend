@@ -10,6 +10,8 @@ const userRegisterRoute = require("./auth/userRoutes/register.js");
 const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
 const LogoutRoute = require("./auth/userRoutes/logout");
+const UserDataRoute = require("./routes/user/userData");
+// settings route
 const UsernameRoute = require("./routes/settings/username");
 const ProfileImgRoute = require("./routes/settings/profileimg");
 const DescirptionRoute = require("./routes/settings/description");
@@ -18,6 +20,8 @@ const CountryRoute = require("./routes/settings/country");
 const BirthdateRoute = require("./routes/settings/birthdate");
 const GenderRoute = require("./routes/settings/gender");
 const PasswordRoute = require("./routes/settings/password");
+// searching routes
+const SearchDataroute = require("./routes/user/searchData");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -155,6 +159,22 @@ app.use("/twitter/api/settings/gender", checkUToken, GenderRoute);
     @endpoint: /twitter/api/settings/password
 */
 app.use("/twitter/api/settings/password", checkUToken, PasswordRoute);
+
+/*   
+    @desc: getting target user data for profile
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/user/userdata
+*/
+app.use("/twitter/api/user/userdata", checkUToken, UserDataRoute);
+
+/*   
+    @desc: searching user names and names
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/user/searchpeople
+*/
+app.use("/twitter/api/user/searchpeople", checkUToken, SearchDataroute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

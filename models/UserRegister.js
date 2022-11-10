@@ -14,6 +14,9 @@ const user = new mongoose.Schema({
     min: 4,
     max: 255,
   },
+  tags: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true, "email alreaddy exist"],

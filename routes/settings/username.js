@@ -54,6 +54,7 @@ UsernameRoute.post("/", async (req, res) => {
     idExist.lastname = lastnameValue;
     idExist.firstname = firstnameValue;
     idExist.name = displaynameValue;
+    idExist.tags = `${usernameValue} ${displaynameValue} ${lastnameValue} ${firstnameValue}`;
     await idExist.save();
 
     res.status(200).json({
