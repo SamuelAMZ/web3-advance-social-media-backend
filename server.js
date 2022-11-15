@@ -22,6 +22,10 @@ const GenderRoute = require("./routes/settings/gender");
 const PasswordRoute = require("./routes/settings/password");
 // searching routes
 const SearchDataroute = require("./routes/user/searchData");
+// posts routes
+const NewPostRoute = require("./routes/posts/newPost");
+const HomePostsRoute = require("./routes/posts/homePosts");
+const FindPostOwner = require("./routes/posts/postOwner");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -175,6 +179,30 @@ app.use("/twitter/api/user/userdata", checkUToken, UserDataRoute);
     @endpoint: /twitter/api/user/searchpeople
 */
 app.use("/twitter/api/user/searchpeople", checkUToken, SearchDataroute);
+
+/*   
+    @desc: adding new post 
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/newpost
+*/
+app.use("/twitter/api/post/newpost", checkUToken, NewPostRoute);
+
+/*   
+    @desc: fetching posts 
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/homeposts
+*/
+app.use("/twitter/api/post/homeposts", checkUToken, HomePostsRoute);
+
+/*   
+    @desc: fetching posts 
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/findpostowner
+*/
+app.use("/twitter/api/post/findpostowner", FindPostOwner);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
