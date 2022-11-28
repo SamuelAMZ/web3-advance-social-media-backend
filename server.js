@@ -11,6 +11,12 @@ const userLoginRoute = require("./auth/userRoutes/login.js");
 const userIsLoginRoute = require("./auth/userRoutes/isLogin");
 const LogoutRoute = require("./auth/userRoutes/logout");
 const UserDataRoute = require("./routes/user/userData");
+const FollowRoute = require("./routes/user/follow");
+const UnFollowRoute = require("./routes/user/unFollow");
+const FollowList = require("./routes/user/followList");
+const FindUser = require("./routes/user/singleUser");
+const WhoToFollow = require("./routes/user/whoToFollow");
+const Suggetions = require("./routes/user/suggetions");
 // settings route
 const UsernameRoute = require("./routes/settings/username");
 const ProfileImgRoute = require("./routes/settings/profileimg");
@@ -203,6 +209,54 @@ app.use("/twitter/api/post/homeposts", checkUToken, HomePostsRoute);
     @endpoint: /twitter/api/post/findpostowner
 */
 app.use("/twitter/api/post/findpostowner", FindPostOwner);
+
+/*   
+    @desc: following route
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/user/follow
+*/
+app.use("/twitter/api/user/follow", FollowRoute);
+
+/*   
+    @desc: unfollowing route
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/user/unfollow
+*/
+app.use("/twitter/api/user/unfollow", UnFollowRoute);
+
+/*   
+    @desc: followlist route
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/user/followlist
+*/
+app.use("/twitter/api/user/followlist", FollowList);
+
+/*   
+    @desc: find single user for following ... route
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/user/followlist
+*/
+app.use("/twitter/api/user/singleuser", FindUser);
+
+/*   
+    @desc: find 3 random user for who to follow route
+    @method: GET
+    @privacy: public
+    @endpoint: /twitter/api/user/whotofollow
+*/
+app.use("/twitter/api/user/whotofollow", WhoToFollow);
+
+/*   
+    @desc: find 10 random user for who to follow route
+    @method: GET
+    @privacy: public
+    @endpoint: /twitter/api/user/suggetions
+*/
+app.use("/twitter/api/user/suggetions", Suggetions);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

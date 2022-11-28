@@ -24,14 +24,72 @@ HomePostsRoute.post("/", async (req, res) => {
   //   load posts
   try {
     const homePosts = await Posts.find()
-      .limit(10 * paged)
+      .skip(paged)
+      .limit(8)
       .sort({ date: -1 })
       .exec();
 
+    // mix it with ads
+    const adsArr = [
+      {
+        name: "pickering",
+        id: 1,
+        img: "/img/pickering.jpg",
+        url: "http://www.pickeringangels.com/",
+        ad: "true",
+      },
+      {
+        name: "lavilla",
+        id: 2,
+        img: "/img/oshawa.jpg",
+        url: "http://lavillaspa.ca/",
+        ad: "true",
+      },
+      {
+        name: "caries vip",
+        id: 3,
+        img: "/img/carries.jpg",
+        url: "https://carriesvip.ca/",
+        ad: "true",
+      },
+    ];
+    let finalArr = [];
+
+    const getRandomAd = () => {
+      let random = Math.floor(Math.random() * adsArr.length);
+      if (random > adsArr.length) {
+        random = 0;
+      }
+
+      return random;
+    };
+
+    for (let i = 0; i < homePosts.length; i++) {
+      if (i > 2 && i % 3 === 0) {
+        finalArr.push(adsArr[getRandomAd()]);
+      }
+
+      finalArr.push(homePosts[i]);
+    }
+
+    // if load the last post
+    if (homePosts.length === 0) {
+      return res.json({
+        message: "posts fetched",
+        code: "ok",
+        more: "no",
+        data: finalArr,
+        // data: homePosts,
+      });
+    }
+
+    // if remain posts
     return res.json({
       message: "posts fetched",
       code: "ok",
-      data: homePosts,
+      more: "yes",
+      data: finalArr,
+      // data: homePosts,
     });
   } catch (error) {
     console.log(error);

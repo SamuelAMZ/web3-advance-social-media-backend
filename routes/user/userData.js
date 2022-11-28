@@ -1,15 +1,17 @@
 const express = require("express");
 const UserDataRoute = express.Router();
 const User = require("../../models/UserRegister");
+const Follows = require("../../models/Follow");
 
 // validation
 const Joi = require("@hapi/joi");
 const schema = Joi.object({
   targetUsername: Joi.string().max(255).required(),
+  currentUserId: Joi.string().max(255).required(),
 });
 
 UserDataRoute.post("/", async (req, res) => {
-  const { targetUsername } = req.body;
+  const { targetUsername, currentUserId } = req.body;
 
   if ((targetUsername === "", targetUsername === null)) {
     return res
@@ -22,6 +24,7 @@ UserDataRoute.post("/", async (req, res) => {
     // joi validation sbody data
     const validation = await schema.validateAsync({
       targetUsername,
+      currentUserId,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message });
@@ -38,11 +41,30 @@ UserDataRoute.post("/", async (req, res) => {
     });
   }
 
+  // get user following data
+  let followersCount = 0;
+  let followingCount = 0;
+  let alreadyFollow = false;
+
+  const targetUser = await Follows.findOne({ userId: usernameExist._id });
+  if (targetUser) {
+    followersCount = targetUser.followers.length;
+    followingCount = targetUser.followings.length;
+
+    // check if current user follow target user
+    for (let i = 0; i < targetUser.followers.length; i++) {
+      if (targetUser.followers[i].match(currentUserId)) {
+        alreadyFollow = true;
+      }
+    }
+  }
+
   // send user data
   res.status(200).json({
     message: "user fetched",
     status: "true",
     user: {
+      alreadyFollow,
       email: usernameExist.email,
       username: usernameExist.username,
       name: usernameExist.name,
@@ -55,8 +77,8 @@ UserDataRoute.post("/", async (req, res) => {
       country: usernameExist.country,
       gender: usernameExist.gender,
       bdate: usernameExist.bdate,
-      following: usernameExist.following,
-      followers: usernameExist.followers,
+      following: followingCount,
+      followers: followersCount,
       profileicon: {
         normal: usernameExist.profileicon.normal,
         thumb: usernameExist.profileicon.thumb,
