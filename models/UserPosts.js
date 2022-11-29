@@ -8,8 +8,10 @@ const posts = new mongoose.Schema({
   },
   postText: {
     type: String,
-    required: [true, "post message"],
     max: 1024,
+  },
+  postImages: {
+    type: Array,
   },
   actionComments: {
     type: String,

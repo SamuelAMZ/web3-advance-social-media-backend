@@ -85,13 +85,13 @@ const user = new mongoose.Schema({
     normal: {
       type: String,
       default:
-        "https://res.cloudinary.com/dm7pcraut/image/upload/v1666499517/u_profile_main/1946429_dpitlh.png",
+        "https://res.cloudinary.com/dm7pcraut/image/upload/v1669652946/profiles/Untitled_design_46_1_s9rdj8.jpg",
       max: 1050,
     },
     thumb: {
       type: String,
       default:
-        "https://res.cloudinary.com/dm7pcraut/image/upload/c_limit,h_60,w_90/v1666499517/u_profile_main/1946429_dpitlh.png",
+        "https://res.cloudinary.com/dm7pcraut/image/upload/v1669652946/profiles/Untitled_design_46_1_s9rdj8.jpg",
       max: 1050,
     },
   },
@@ -99,7 +99,7 @@ const user = new mongoose.Schema({
     normal: {
       type: String,
       default:
-        "https://res.cloudinary.com/dm7pcraut/image/upload/v1666500653/u_profile_main/dvux_fyhbql.png",
+        "https://res.cloudinary.com/dm7pcraut/image/upload/v1669652946/profiles/Untitled_design_18_1_oatvts.jpg",
       max: 1050,
     },
   },

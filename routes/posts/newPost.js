@@ -5,23 +5,19 @@ const Joi = require("@hapi/joi");
 
 const schema = Joi.object({
   ownerId: Joi.string().max(1024).required(),
-  newPostText: Joi.string().max(1024).required(),
+  newPostText: Joi.string().allow("").max(1024),
+  newPostImages: Joi.array().required(),
 });
 
 NewPostRoute.post("/", async (req, res) => {
-  const { ownerId, newPostText } = req.body;
-
-  // validation
-  if (!newPostText || !ownerId) {
-    res.status(400).json({ message: "verify your post imput" });
-    return;
-  }
+  const { ownerId, newPostText, newPostImages } = req.body;
 
   // joi validation sbody data
   try {
     const validation = await schema.validateAsync({
       ownerId,
       newPostText,
+      newPostImages,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message });
@@ -33,6 +29,7 @@ NewPostRoute.post("/", async (req, res) => {
   const post = new Posts({
     ownerId: ownerId,
     postText: newPostText,
+    postImages: newPostImages,
   });
   //   save
   try {
