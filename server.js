@@ -32,6 +32,9 @@ const SearchDataroute = require("./routes/user/searchData");
 const NewPostRoute = require("./routes/posts/newPost");
 const HomePostsRoute = require("./routes/posts/homePosts");
 const FindPostOwner = require("./routes/posts/postOwner");
+const ActionsRoute = require("./routes/posts/actions.js");
+const LikesRoute = require("./routes/posts/likes");
+const UnLikesRoute = require("./routes/posts/unlikes");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -257,6 +260,30 @@ app.use("/twitter/api/user/whotofollow", WhoToFollow);
     @endpoint: /twitter/api/user/suggetions
 */
 app.use("/twitter/api/user/suggetions", Suggetions);
+
+/*   
+    @desc: find action details
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/actions
+*/
+app.use("/twitter/api/post/actions", ActionsRoute);
+
+/*   
+    @desc: like post
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/likes
+*/
+app.use("/twitter/api/post/likes", LikesRoute);
+
+/*   
+    @desc: unlike post
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/unlikes
+*/
+app.use("/twitter/api/post/unlikes", UnLikesRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

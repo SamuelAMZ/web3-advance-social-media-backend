@@ -13,6 +13,18 @@ const posts = new mongoose.Schema({
   postImages: {
     type: Array,
   },
+  comments: {
+    type: Array,
+    default: [],
+  },
+  reposts: {
+    type: Array,
+    default: [],
+  },
+  likes: {
+    type: Array,
+    default: [],
+  },
   actionComments: {
     type: String,
     default: "0",
@@ -22,10 +34,6 @@ const posts = new mongoose.Schema({
     default: "0",
   },
   actionLikes: {
-    type: String,
-    default: "0",
-  },
-  actionViews: {
     type: String,
     default: "0",
   },
