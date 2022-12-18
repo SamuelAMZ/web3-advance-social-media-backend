@@ -1,5 +1,5 @@
 const express = require("express");
-const ActionsRoute = express.Router();
+const RepostsRoute = express.Router();
 const Posts = require("../../models/UserPosts");
 
 // validation
@@ -7,10 +7,11 @@ const Joi = require("@hapi/joi");
 const schema = Joi.object({
   postId: Joi.string().max(1050).required(),
   userId: Joi.string().max(1050).required(),
+  repostNote: Joi.string().max(1050).allow(""),
 });
 
-ActionsRoute.post("/", async (req, res) => {
-  const { postId, userId } = req.body;
+RepostsRoute.post("/", async (req, res) => {
+  const { postId, userId, repostNote } = req.body;
 
   if (postId === "" || userId === "") {
     return res
@@ -24,6 +25,7 @@ ActionsRoute.post("/", async (req, res) => {
     const validation = await schema.validateAsync({
       postId,
       userId,
+      repostNote,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message });
@@ -32,7 +34,6 @@ ActionsRoute.post("/", async (req, res) => {
 
   //   find post
   try {
-    // check if user like, repost, comment, bookmark
     const post = await Posts.findById(postId);
     if (!post) {
       return res
@@ -40,24 +41,30 @@ ActionsRoute.post("/", async (req, res) => {
         .json({ message: "post not found", code: "bad", payload: "null" });
     }
 
-    // check if user founded in likes array
-    let data = {};
-    const isLiked = post.likes.includes(userId);
-    const isReposted = post.reposts.includes(userId);
-    data = { like: isLiked, repost: isReposted };
+    // create new post (type of repost)
+    const newPost = new Posts({
+      ownerId: userId,
+      postText: post.postText,
+      postImages: post.postImages,
+      repostNote,
+      originalUId: post.ownerId,
+      postType: "repost",
+    });
+    // save repost
+    await newPost.save();
 
-    // send response
-    return res.status(200).json({
-      message: `success`,
+    // update repost count from original user to +1
+    post.reposts.push(userId);
+    post.actionReposts = String(Number(post.actionReposts) + 1);
+    await post.save();
+
+    return res.status(201).json({
+      message: "post created successfully",
       code: "ok",
-      payload: { data },
     });
   } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ message: `error finding action details for post ${postId}` });
+    return res.status(500).json({ message: `error repost` });
   }
 });
 
-module.exports = ActionsRoute;
+module.exports = RepostsRoute;

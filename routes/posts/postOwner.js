@@ -6,10 +6,11 @@ const User = require("../../models/UserRegister");
 const Joi = require("@hapi/joi");
 const schema = Joi.object({
   ownerId: Joi.string().max(1050).required(),
+  repostId: Joi.string().max(1050).allow(""),
 });
 
 FindPostOwner.post("/", async (req, res) => {
-  const { ownerId } = req.body;
+  const { ownerId, repostId } = req.body;
 
   if ((ownerId === "", ownerId === null)) {
     return res
@@ -22,6 +23,7 @@ FindPostOwner.post("/", async (req, res) => {
     // joi validation sbody data
     const validation = await schema.validateAsync({
       ownerId,
+      repostId,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message });
@@ -32,7 +34,18 @@ FindPostOwner.post("/", async (req, res) => {
   try {
     const owner = await User.findById(ownerId);
 
-    return res.json({ message: "users fetched", status: "true", data: owner });
+    let originalU = "";
+    // find original user if it s repost
+    if (repostId && repostId !== "") {
+      originalU = await User.findById(repostId);
+    }
+
+    return res.json({
+      message: "users fetched",
+      status: "true",
+      data: owner,
+      originalU,
+    });
   } catch (error) {
     return res
       .status(500)

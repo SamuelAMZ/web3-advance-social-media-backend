@@ -35,6 +35,7 @@ const FindPostOwner = require("./routes/posts/postOwner");
 const ActionsRoute = require("./routes/posts/actions.js");
 const LikesRoute = require("./routes/posts/likes");
 const UnLikesRoute = require("./routes/posts/unlikes");
+const RepostsRoute = require("./routes/posts/reposts");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -284,6 +285,14 @@ app.use("/twitter/api/post/likes", LikesRoute);
     @endpoint: /twitter/api/post/unlikes
 */
 app.use("/twitter/api/post/unlikes", UnLikesRoute);
+
+/*   
+    @desc: adding repost 
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/repost
+*/
+app.use("/twitter/api/post/repost", checkUToken, RepostsRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

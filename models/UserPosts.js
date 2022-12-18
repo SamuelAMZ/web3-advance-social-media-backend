@@ -6,6 +6,11 @@ const posts = new mongoose.Schema({
     required: true,
     max: 255,
   },
+  postType: {
+    type: String,
+    default: "normal",
+  },
+
   postText: {
     type: String,
     max: 1024,
@@ -36,6 +41,13 @@ const posts = new mongoose.Schema({
   actionLikes: {
     type: String,
     default: "0",
+  },
+  repostNote: {
+    type: String,
+    max: 1024,
+  },
+  originalUId: {
+    type: String,
   },
   date: {
     type: Date,
