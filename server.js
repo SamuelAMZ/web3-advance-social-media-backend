@@ -36,6 +36,9 @@ const ActionsRoute = require("./routes/posts/actions.js");
 const LikesRoute = require("./routes/posts/likes");
 const UnLikesRoute = require("./routes/posts/unlikes");
 const RepostsRoute = require("./routes/posts/reposts");
+const NewBookmark = require("./routes/posts/bookmarkNew");
+const BookmarksList = require("./routes/posts/bookmarks");
+const SingleBookmark = require("./routes/posts/bookmarkSingle");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -293,6 +296,30 @@ app.use("/twitter/api/post/unlikes", UnLikesRoute);
     @endpoint: /twitter/api/post/repost
 */
 app.use("/twitter/api/post/repost", checkUToken, RepostsRoute);
+
+/*   
+    @desc: new bookmark
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/newbookmark
+*/
+app.use("/twitter/api/post/newbookmark", checkUToken, NewBookmark);
+
+/*   
+    @desc: bookmarks list
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/bookmarklist
+*/
+app.use("/twitter/api/post/bookmarklist", checkUToken, BookmarksList);
+
+/*   
+    @desc: bookmarks list
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/singlebookmark
+*/
+app.use("/twitter/api/post/singlebookmark", SingleBookmark);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

@@ -10,7 +10,6 @@ const posts = new mongoose.Schema({
     type: String,
     default: "normal",
   },
-
   postText: {
     type: String,
     max: 1024,
