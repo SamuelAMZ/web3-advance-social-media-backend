@@ -45,6 +45,9 @@ const posts = new mongoose.Schema({
     type: String,
     max: 1024,
   },
+  originalPostId: {
+    type: String,
+  },
   originalUId: {
     type: String,
   },

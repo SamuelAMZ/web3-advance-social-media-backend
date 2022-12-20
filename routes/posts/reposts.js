@@ -47,6 +47,7 @@ RepostsRoute.post("/", async (req, res) => {
       postText: post.postText,
       postImages: post.postImages,
       repostNote,
+      originalPostId: post._id,
       originalUId: post.ownerId,
       postType: "repost",
     });

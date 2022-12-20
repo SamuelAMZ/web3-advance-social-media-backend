@@ -30,6 +30,7 @@ const PasswordRoute = require("./routes/settings/password");
 const SearchDataroute = require("./routes/user/searchData");
 // posts routes
 const NewPostRoute = require("./routes/posts/newPost");
+const SinglePost = require("./routes/posts/singlePost");
 const HomePostsRoute = require("./routes/posts/homePosts");
 const FindPostOwner = require("./routes/posts/postOwner");
 const ActionsRoute = require("./routes/posts/actions.js");
@@ -39,6 +40,9 @@ const RepostsRoute = require("./routes/posts/reposts");
 const NewBookmark = require("./routes/posts/bookmarkNew");
 const BookmarksList = require("./routes/posts/bookmarks");
 const SingleBookmark = require("./routes/posts/bookmarkSingle");
+const NewComment = require("./routes/posts/commentNew");
+const CommentList = require("./routes/posts/comments");
+const CommentOne = require("./routes/posts/commentOne");
 // middlewares
 const checkUToken = require("./middleware/checkUToken");
 
@@ -320,6 +324,37 @@ app.use("/twitter/api/post/bookmarklist", checkUToken, BookmarksList);
     @endpoint: /twitter/api/post/singlebookmark
 */
 app.use("/twitter/api/post/singlebookmark", SingleBookmark);
+
+/*   
+    @desc: single post
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/singlepost
+*/
+app.use("/twitter/api/post/singlepost", checkUToken, SinglePost);
+
+/*   
+    @desc: new comment
+    @method: POST
+    @privacy: private
+    @endpoint: /twitter/api/post/newcomment
+*/
+app.use("/twitter/api/post/newcomment", checkUToken, NewComment);
+/*   
+    @desc: comments ids
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/commentslist
+*/
+app.use("/twitter/api/post/commentslist", CommentList);
+
+/*   
+    @desc: single comment
+    @method: POST
+    @privacy: public
+    @endpoint: /twitter/api/post/onecomment
+*/
+app.use("/twitter/api/post/onecomment", CommentOne);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
