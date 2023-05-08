@@ -208,10 +208,10 @@ app.use("/twitter/api/post/newpost", checkUToken, NewPostRoute);
 /*   
     @desc: fetching posts 
     @method: POST
-    @privacy: private
+    @privacy: public
     @endpoint: /twitter/api/post/homeposts
 */
-app.use("/twitter/api/post/homeposts", checkUToken, HomePostsRoute);
+app.use("/twitter/api/post/homeposts", HomePostsRoute);
 
 /*   
     @desc: fetching posts 
